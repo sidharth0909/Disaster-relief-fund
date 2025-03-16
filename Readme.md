@@ -11,7 +11,6 @@ A decentralized web application (DApp) built on **Ethereum** that enables disast
 - [⚙️ Installation & Setup](#-installation--setup)
 - [🔗 Smart Contract Deployment](#-smart-contract-deployment)
 - [💡 Usage Guide](#-usage-guide)
-- [📷 Screenshots](#-screenshots)
 - [🔧 Troubleshooting](#-troubleshooting)
 - [🤝 Contributing](#-contributing)
 - [📜 License](#-license)
