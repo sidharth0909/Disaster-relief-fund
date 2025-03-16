@@ -1,70 +1,183 @@
-# Getting Started with Create React App
+## **📌 Disaster Relief Crowdfunding DApp**
+A decentralized web application (DApp) built on **Ethereum** that enables disaster relief crowdfunding. **Admins can create campaigns**, and **anyone can donate** securely using **MetaMask** and **smart contracts**.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+## **📜 Table of Contents**
+- [📌 Disaster Relief Crowdfunding DApp](#-disaster-relief-crowdfunding-dapp)
+- [🚀 Features](#-features)
+- [🛠 Tech Stack](#-tech-stack)
+- [📂 Project Structure](#-project-structure)
+- [⚙️ Installation & Setup](#-installation--setup)
+- [🔗 Smart Contract Deployment](#-smart-contract-deployment)
+- [💡 Usage Guide](#-usage-guide)
+- [🔧 Troubleshooting](#-troubleshooting)
+- [🤝 Contributing](#-contributing)
+- [📜 License](#-license)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## **🚀 Features**
+✅ **Decentralized Fundraising** - Blockchain-based crowdfunding for disaster relief.  
+✅ **Admin Authentication** - Admins log in with a username & password to create campaigns.  
+✅ **Secure Donations** - Users donate using **MetaMask** with **Ethereum transactions**.  
+✅ **Transparent Transactions** - All contributions are **stored on the blockchain**.  
+✅ **Campaign Visibility** - Anyone can view all campaigns and donation amounts.  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## **🛠 Tech Stack**
+- **Frontend**: React.js, Web3.js, Bootstrap  
+- **Backend**: Ethereum Smart Contract (Solidity)  
+- **Blockchain**: Ganache (Local), Goerli / Sepolia (Testnet)  
+- **Development Tools**: Truffle, Hardhat, MetaMask  
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## **📂 Project Structure**
+```
+📦 disaster-relief-dapp
+ ┣  # React Frontend
+ ┃ ┣ 📂 src
+ ┃ ┃ ┣ 📂 components  # React components (Campaigns, Admin Login)
+ ┃ ┃ ┣ 📂 abis        # ABI JSON files for contract interaction
+ ┃ ┃ ┣ 📜 App.js      # Main React App
+ ┃ ┃ ┣ 📜 index.js    # React entry point
+ ┃ ┃ ┗ 📜 styles.css  # Styling
+ ┣ 📂 blockchain      # Smart Contract Code
+ ┃ ┣ 📂 contracts
+ ┃ ┃ ┣ 📜 DisasterReliefFund.sol  # Solidity smart contract
+ ┃ ┣ 📂 migrations    # Deployment scripts
+ ┃ ┣ 📂 test          # Smart contract tests
+ ┃ ┗ 📜 truffle-config.js # Truffle settings
+ ┣ 📜 package.json    # Dependencies
+ ┣ 📜 README.md       # Documentation
+ ┗ 📜 .gitignore      # Ignore node_modules & unnecessary files
+```
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## **⚙️ Installation & Setup**
+### **1️⃣ Clone the Repository**
+```sh
+git clone https://github.com/yourusername/disaster-relief-fund.git
+cd disaster-relief-fund
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### **2️⃣ Install Dependencies**
+```sh
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### **3️⃣ Start Ganache (Local Blockchain)**
+- **For Ganache CLI**:
+  ```sh
+  ganache-cli
+  ```
+- **For Ganache GUI**:
+  - Open **Ganache** → Click **Quickstart Ethereum**.
 
-### `npm run eject`
+### **4️⃣ Compile & Deploy Smart Contract**
+```sh
+truffle compile
+truffle migrate --network development --reset
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### **5️⃣ Start React Frontend**
+```sh
+cd client
+npm start
+```
+🚀 **Open [http://localhost:3000](http://localhost:3000) to access the DApp!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## **🔗 Smart Contract Deployment**
+### **Deploy on Ethereum Testnet (Goerli/Sepolia)**
+1️⃣ **Update `truffle-config.js`** with Infura RPC URL & wallet private key.  
+2️⃣ **Deploy to Goerli:**
+```sh
+truffle migrate --network goerli --reset
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## **💡 Usage Guide**
+### **1️⃣ Admin Login**
+- Click **"Admin Login"** → Enter **Username & Password** (default: `admin / 12345`).  
+- If correct, the **Create Campaign** form appears.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### **2️⃣ Create a Campaign**
+- Enter **Campaign Name**, **Location**, **Goal (ETH)**.  
+- Click **"Create Campaign"** → **MetaMask will prompt for confirmation**.  
+- Once confirmed, the campaign **appears on the homepage**.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### **3️⃣ Donate to a Campaign**
+- Enter the amount in ETH.  
+- Click **"Donate"** → **MetaMask will prompt for confirmation**.  
+- Upon confirmation, the donation is **recorded on the blockchain**.
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## **🔧 Troubleshooting**
+### **1️⃣ MetaMask - "Internal JSON-RPC error"**
+✔ Ensure MetaMask is **connected to the correct network** (Ganache, Goerli, or Sepolia).  
+✔ Run:
+```sh
+truffle migrate --network development --reset
+```
+✔ Restart the frontend:  
+```sh
+npm start
+```
 
-### Analyzing the Bundle Size
+### **2️⃣ "Sender Account Not Recognized"**
+✔ Ensure **Ganache is running** before using Truffle.  
+✔ Run in Truffle Console:
+```sh
+web3.eth.getAccounts().then(console.log)
+```
+✔ Use a valid sender address when calling `createCampaign` in Truffle.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### **3️⃣ Campaigns Not Appearing**
+✔ Run:
+```sh
+truffle console --network development
+DisasterReliefFund.deployed().then(instance => instance.getCampaigns())
+```
+✔ If empty, **redeploy the contract**.
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## **🤝 Contributing**
+### **🛠 How to Contribute**
+1. **Fork the repo** & create a new branch:
+   ```sh
+   git checkout -b feature-branch
+   ```
+2. **Make changes & commit**:
+   ```sh
+   git commit -m "Added new feature"
+   ```
+3. **Push & create a Pull Request**:
+   ```sh
+   git push origin feature-branch
+   ```
+4. We will review your PR & merge it! 🚀
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## **📜 License**
+This project is licensed under the **MIT License**.  
+Feel free to use, modify, and distribute! 😊  
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## **⭐ Star this Repository!**
+If you found this project useful, **please ⭐ it on GitHub**! 🌟  
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## **📬 Contact**
+💡 If you have any questions, **reach out via GitHub Issues**!  
+📩 **Email**: sidharthsaholiya@gmail.com
