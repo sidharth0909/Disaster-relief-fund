@@ -1,7 +1,3 @@
-Here's a **professional README file** for your **Disaster Relief Crowdfunding DApp using Blockchain**. It includes installation steps, usage, features, and contribution guidelines. 🚀  
-
----
-
 ## **📌 Disaster Relief Crowdfunding DApp**
 A decentralized web application (DApp) built on **Ethereum** that enables disaster relief crowdfunding. **Admins can create campaigns**, and **anyone can donate** securely using **MetaMask** and **smart contracts**.
 
@@ -42,7 +38,7 @@ A decentralized web application (DApp) built on **Ethereum** that enables disast
 ## **📂 Project Structure**
 ```
 📦 disaster-relief-dapp
- ┣ 📂 client          # React Frontend
+ ┣  # React Frontend
  ┃ ┣ 📂 src
  ┃ ┃ ┣ 📂 components  # React components (Campaigns, Admin Login)
  ┃ ┃ ┣ 📂 abis        # ABI JSON files for contract interaction
@@ -65,8 +61,8 @@ A decentralized web application (DApp) built on **Ethereum** that enables disast
 ## **⚙️ Installation & Setup**
 ### **1️⃣ Clone the Repository**
 ```sh
-git clone https://github.com/yourusername/disaster-relief-dapp.git
-cd disaster-relief-dapp
+git clone https://github.com/yourusername/disaster-relief-fund.git
+cd disaster-relief-fund
 ```
 
 ### **2️⃣ Install Dependencies**
@@ -121,21 +117,6 @@ truffle migrate --network goerli --reset
 - Enter the amount in ETH.  
 - Click **"Donate"** → **MetaMask will prompt for confirmation**.  
 - Upon confirmation, the donation is **recorded on the blockchain**.
-
----
-
-## **📷 Screenshots**
-### ✅ **Homepage (List of Campaigns)**
-<img src="screenshots/home.png" width="600" />
-
-### ✅ **Admin Login**
-<img src="screenshots/admin_login.png" width="400" />
-
-### ✅ **Campaign Creation**
-<img src="screenshots/create_campaign.png" width="400" />
-
-### ✅ **Donation**
-<img src="screenshots/donate.png" width="400" />
 
 ---
 
@@ -200,8 +181,4 @@ If you found this project useful, **please ⭐ it on GitHub**! 🌟
 
 ## **📬 Contact**
 💡 If you have any questions, **reach out via GitHub Issues**!  
-📩 **Email**: your.email@example.com  
-
----
-
-This **README** covers everything needed for **GitHub documentation**! 🚀 Let me know if you want any modifications! 😊
+📩 **Email**: sidharthsaholiya@gmail.com
