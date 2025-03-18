@@ -1,0 +1,52 @@
+.disaster-fund-container {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  .admin-dashboard {
+    background-color: #fff;
+  }
+  
+  .campaign-card {
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+  }
+  
+  .campaign-card:hover {
+    transform: translateY(-2px);
+  }
+  
+  .progress-bar {
+    background-color: #4CAF50;
+    transition: width 0.5s ease;
+  }
+  
+  .donation-input input {
+    border-radius: 20px 0 0 20px;
+  }
+  
+  .donation-input button {
+    border-radius: 0 20px 20px 0;
+  }
+  
+  .info-card {
+    border-left: 4px solid #2196F3;
+  }
+  
+  .modal {
+    background-color: rgba(0,0,0,0.5);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .disaster-message {
+    animation: fadeIn 2s ease-in-out;
+  }
