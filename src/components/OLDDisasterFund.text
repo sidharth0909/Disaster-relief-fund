@@ -60,10 +60,12 @@ const DisasterFund = () => {
   const [adminPassword, setAdminPassword] = useState("");
 
   const heroImages = [
-    "https://th.bing.com/th/id/OIP.Mqp65D6sIsrRustp9AZzTgHaEK?rs=1&pid=ImgDetMain",
-    "https://www.worldvision.org.sg/sites/default/files/styles/product_image/public/tsf_donation_page_photo.jpg?itok=Fq1dKh3S",
-    "https://i.natgeofe.com/n/79dd0b3b-0038-4d3c-a947-a8e3a0ecb9d5/52801.jpg"
+    "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+    "https://images.unsplash.com/photo-1508854710579-5cecc3a9ff17?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+    "https://images.unsplash.com/photo-1522096823084-2d1aa8411c13?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
   ];
+
+  
 
   const [formData, setFormData] = useState({
     name: "",
@@ -86,6 +88,8 @@ const DisasterFund = () => {
       type: "location",
     },
   ]);
+
+  
 
   useEffect(() => {
     const loadBlockchainData = async () => {
@@ -142,6 +146,8 @@ const DisasterFund = () => {
       alert("Invalid credentials");
     }
   };
+  
+  
 
   const handleLogout = () => {
     setAdminLoggedIn(false);
@@ -153,7 +159,7 @@ const DisasterFund = () => {
         const web3 = new Web3(window.ethereum);
         await window.ethereum.request({ method: "eth_requestAccounts" });
         const accounts = await web3.eth.getAccounts();
-        setAccount(accounts[0]);
+        setAccount(accounts[0]); // Now any user can set their own account
       } catch (error) {
         console.error("Wallet connection failed:", error);
       }
@@ -208,19 +214,19 @@ const DisasterFund = () => {
       refreshCampaigns(contract);
     }
   };
-
   const withdrawFunds = async (campaignId) => {
     if (!contract || !account) return alert("Contract not initialized");
   
     try {
       await contract.methods.withdrawFunds(campaignId).send({ from: account });
       alert("Funds withdrawn successfully!");
-      await refreshCampaigns(contract);
+      await refreshCampaigns(contract); // Refresh the UI after withdrawal
     } catch (error) {
       console.error("Withdrawal error:", error);
       alert("Failed to withdraw funds.");
     }
   };
+  
 
   const openEditModal = (campaign, index) => {
     setEditingCampaign(index);
@@ -240,13 +246,13 @@ const DisasterFund = () => {
       (Number(campaign.amountRaised) / Number(campaign.goal)) * 100,
       100
     );
-
+  
     const handleDonate = async () => {
       if (isCompleted) {
         alert("This campaign has already reached its goal. Thank you for your support!");
         return;
       }
-
+  
       try {
         const weiAmount = Web3.utils.toWei(donationAmount.toString(), "ether");
         await contract.methods.donate(index).send({
@@ -260,7 +266,7 @@ const DisasterFund = () => {
         alert(`Donation failed: ${error.message}`);
       }
     };
-
+  
     return (
       <div className={`campaign-card card mb-4 ${isCompleted ? 'completed' : ''}`}>
         {isCompleted && (
@@ -279,7 +285,7 @@ const DisasterFund = () => {
           </h3>
           <p className="text-muted">{campaign.location}</p>
           <p className="card-text">{campaign.description}</p>
-
+  
           <div className="progress mb-3">
             <div
               className={`progress-bar ${isCompleted ? 'bg-success' : ''}`}
@@ -289,12 +295,12 @@ const DisasterFund = () => {
               {progress.toFixed(1)}%
             </div>
           </div>
-
+  
           <div className="d-flex justify-content-between align-items-center mb-3">
             <span>Raised: {Web3.utils.fromWei(campaign.amountRaised, "ether")} ETH</span>
             <span>Goal: {Web3.utils.fromWei(campaign.goal, "ether")} ETH</span>
           </div>
-
+  
           {!adminLoggedIn && !isCompleted && (
             <div className="donation-input input-group">
               <input
@@ -313,7 +319,7 @@ const DisasterFund = () => {
               </div>
             </div>
           )}
-
+  
           {adminLoggedIn && (
             <div className="admin-controls">
               <button
@@ -362,6 +368,7 @@ const DisasterFund = () => {
     </div>
   );
 
+  // Separate completed and active campaigns
   const activeCampaigns = campaigns.filter(
     (campaign) => Number(campaign.amountRaised) < Number(campaign.goal)
   );
@@ -399,8 +406,8 @@ const DisasterFund = () => {
           <nav className="admin-navbar navbar navbar-dark bg-dark">
             <span className="navbar-brand">Admin Dashboard</span>
             <button className="btn btn-success" onClick={connectWallet}>
-              {account ? `Connected: ${account.substring(0, 6)}...` : "Connect Wallet"}
-            </button>
+  {account ? `Connected: ${account.substring(0, 6)}...` : "Connect Wallet"}
+</button>
             <button className="btn btn-light" onClick={handleLogout}>
               Logout
             </button>
@@ -458,26 +465,27 @@ const DisasterFund = () => {
           </nav>
 
           <Carousel fade interval={5000} className="hero-carousel">
-            {heroImages.map((img, index) => (
-              <Carousel.Item key={index}>
-                <div 
-                  className="hero-slide"
-                  style={{ backgroundImage: `url(${img})` }}
-                >
-                  <div className="carousel-caption">
-                    <h2 className="animated fadeInUp">Together We Can Make a Difference</h2>
-                    <p className="animated fadeInUp delay-1">Support disaster relief efforts around the world</p>
-                    <button 
-                      className="btn btn-lg btn-primary animated fadeInUp delay-2"
-                      onClick={connectWallet}
-                    >
-                      {account ? `Connected: ${account.substring(0, 6)}...` : "Connect Wallet to Donate"}
-                    </button>
-                  </div>
-                </div>
-              </Carousel.Item>
-            ))}
-          </Carousel>
+  {heroImages.map((img, index) => (
+    <Carousel.Item key={index}>
+      <div 
+        className="hero-slide"
+        style={{ backgroundImage: `url(${img})` }}
+      >
+        <div className="carousel-caption">
+          <h2 className="animated fadeInUp">Together We Can Make a Difference</h2>
+          <p className="animated fadeInUp delay-1">Support disaster relief efforts around the world</p>
+          <button 
+            className="btn btn-lg btn-primary animated fadeInUp delay-2"
+            onClick={connectWallet}
+          >
+            {account ? `Connected: ${account.substring(0, 6)}...` : "Connect Wallet to Donate"}
+          </button>
+        </div>
+      </div>
+    </Carousel.Item>
+  ))}
+</Carousel>
+
 
           {showAdminLogin && (
             <div className="modal show" style={{ display: "block" }}>
@@ -546,52 +554,48 @@ const DisasterFund = () => {
                 </div>
               </div>
 
+              
+
               <div className="col-md-6">
-                <h2 className="mb-4">Active Campaigns</h2>
-                {activeCampaigns.length > 0 ? (
-                  activeCampaigns.map((campaign, index) => (
-                    <DonationCard key={index} campaign={campaign} index={index} />
-                  ))
-                ) : (
-                  <div className="alert alert-info">
-                    No active campaigns at the moment. Check back later!
-                  </div>
-                )}
-
-                <h2 className="mt-5 mb-4">Completed Campaigns</h2>
-                {completedCampaigns.length > 0 ? (
-                  completedCampaigns.map((campaign, index) => (
-                    <DonationCard key={index} campaign={campaign} index={index} />
-                  ))
-                ) : (
-                  <div className="alert alert-info">
-                    No completed campaigns yet.
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="row mt-5">
-              <div className="col-md-12">
-                <div className="card">
-                  <div className="card-body">
-                    <h4 className="card-title">Official Relief Websites</h4>
-                    <ul className="list-group">
-                      {disasterReliefWebsites.map((site, index) => (
-                        <li key={index} className="list-group-item">
-                          <a
-                            href={site.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {site.name}
-                          </a>
-                          <p className="text-muted">{site.description}</p>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                <div className="disaster-relief-websites mt-8">
+                  <h4>Disaster Relief Fund Websites</h4>
+                  {disasterReliefWebsites.map((site, index) => (
+                    <div key={index} className="website-card card mb-3">
+                      <div className="card-body">
+                        <h5 className="card-title">{site.name}</h5>
+                        <p className="card-text">{site.description}</p>
+                        <a
+                          href={site.url}
+                          className="btn btn-primary"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Visit Website
+                        </a>
+                      </div>
+                    </div>
+                  ))}
                 </div>
+              </div>
+
+              <div className="col-md-8">
+                <h2 className="mb-4">Active Relief Campaigns</h2>
+                {activeCampaigns.length > 0 ? (
+                activeCampaigns.map((campaign, index) => (
+                  <DonationCard key={index} campaign={campaign} index={index} />
+                ))
+              ) : (
+                <div className="alert alert-info">
+                  No active campaigns currently. Check back soon!
+                </div>
+              )}
+              {completedCampaigns.length > 0 && (
+                <>
+                  <h2 className="mb-4 mt-5">🎉 Completed Goals</h2>
+                  {completedCampaigns.map((campaign, index) => (
+                    <DonationCard key={index} campaign={campaign} index={index} />
+                  ))}
+                </>)}
               </div>
             </div>
           </div>
@@ -604,7 +608,7 @@ const DisasterFund = () => {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">
-                  {editingCampaign !== null ? "Edit Campaign" : "Create Campaign"}
+                  {editingCampaign !== null ? "Edit Campaign" : "New Campaign"}
                 </h5>
                 <button
                   className="close"
@@ -618,7 +622,6 @@ const DisasterFund = () => {
                   <div className="form-group">
                     <label>Campaign Name</label>
                     <input
-                      type="text"
                       className="form-control"
                       value={formData.name}
                       onChange={(e) =>
@@ -630,7 +633,6 @@ const DisasterFund = () => {
                   <div className="form-group">
                     <label>Location</label>
                     <input
-                      type="text"
                       className="form-control"
                       value={formData.location}
                       onChange={(e) =>
@@ -657,13 +659,16 @@ const DisasterFund = () => {
                       className="form-control"
                       value={formData.description}
                       onChange={(e) =>
-                        setFormData({ ...formData, description: e.target.value })
+                        setFormData({
+                          ...formData,
+                          description: e.target.value,
+                        })
                       }
-                      required
+                      rows="3"
                     />
                   </div>
                   <button type="submit" className="btn btn-primary">
-                    {editingCampaign !== null ? "Update" : "Create"}
+                    {editingCampaign !== null ? "Update" : "Create"} Campaign
                   </button>
                 </form>
               </div>
@@ -676,3 +681,194 @@ const DisasterFund = () => {
 };
 
 export default DisasterFund;
+
+
+:root {
+  --primary-color: #2196F3;
+  --secondary-color: #4CAF50;
+  --gradient-start: #1A2980;
+  --gradient-end: #26D0CE;
+}
+
+.disaster-fund-container {
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+/* Hero Section */
+.hero-carousel {
+  position: relative;
+  z-index: 0; /* Ensures it stays below other elements */
+  margin-bottom: 20px; /* Adds space below the carousel */
+}
+
+.hero-carousel .carousel-item {
+  height: 60vh;
+  min-height: 400px;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-carousel .carousel-caption {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.hero-slide {
+  height: 400px; /* Adjust height */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  padding: 15px;
+  border-radius: 10px;
+  max-width: 80%;
+}
+
+.hero-slide::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.4);
+}
+
+
+.carousel-caption h2 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+}
+
+/* Campaign Cards */
+.campaign-card {
+  border: none;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  background: white;
+}
+
+.campaign-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  transition: width 1s ease-in-out;
+}
+
+/* Completed Campaigns */
+.campaign-card.completed {
+  opacity: 0.8;
+  background: #f8f9fa;
+}
+
+.campaign-card.completed .card-title {
+  color: #6c757d;
+}
+
+/* Emergency Contacts */
+.emergency-contacts .list-group-item {
+  padding: 1rem 1.5rem;
+  font-size: 0.95rem;
+}
+
+.emergency-contacts strong {
+  color: #dc3545;
+  margin-left: 0.5rem;
+}
+
+/* Completed Ribbon */
+.completed-ribbon {
+  position: absolute;
+  top: 10px;
+  right: -30px;
+  background: #28a745;
+  color: white;
+  padding: 5px 30px;
+  transform: rotate(45deg);
+  font-size: 0.9rem;
+  z-index: 1;
+}
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  transition: transform 0.3s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+}
+
+/* Admin Dashboard */
+.admin-navbar {
+  background: linear-gradient(135deg, #2c3e50, #3498db);
+  padding: 1rem 2rem;
+}
+
+/* Info Cards */
+.info-card {
+  border-left: 4px solid var(--primary-color);
+  transition: transform 0.3s;
+}
+
+.info-card:hover {
+  transform: translateX(10px);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.fadeInUp { animation-name: fadeInUp; }
+.delay-1 { animation-delay: 0.3s; }
+.delay-2 { animation-delay: 0.6s; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-carousel {
+    height: 50vh;
+  }
+  
+  .carousel-caption h2 {
+    font-size: 2rem;
+  }
+  
+  .carousel-caption p {
+    font-size: 1rem;
+  }
+} */
+
