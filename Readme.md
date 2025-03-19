@@ -175,10 +175,11 @@ If you need help, reach out via **GitHub Issues** or email at **sidharthsaholiya
 
 Simple Steps to run the project ->
 first thing is to start the ganache server -> ganache-cli
-Compile the Contract using truffle compile
+2nd -> Open Metamask and connect your local server in show test network
+3rd-> Compile the Contract using truffle compile
 then use the
-truffle migrate --network development
-start the frontend using npm start
+4th-> truffle migrate --network development
+5th-> start the frontend using npm start
 
 ganache-cli --db ./ganache-data --port 8545 --networkId 1337 this command is used to store the our campaign data without getting it lost
 
